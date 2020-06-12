@@ -23,8 +23,10 @@ class SudokuSolver(Solver):
     def solve(self, board: Board) -> bool:
         unassigned = self.getFirstBlank(board)
         if not unassigned:
+            print("finishing here2")
             return True
         if board.verify():
+            print("finishing here")
             return True
         for num in range(1, board.size + 1):
             print(f"trying {unassigned},  {num}")
