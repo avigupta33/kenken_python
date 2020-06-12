@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 from cage import Cage
 
 class Board:
@@ -7,18 +7,19 @@ class Board:
         self.size = size
         self.cages = cages
 
-    def getValue(self, row_i: int, col_i: int) -> int:
-        return self.data[row_i][col_i]
+    def getValue(self, coords: Tuple[int, int]) -> int:
+        return self.data[coords[0]][coords[1]]
 
-    def setValue(self, row_i: int, col_i: int, value: int) -> None:
-        self.data[row_i][col_i] = value
+    def setValue(self, coords: Tuple[int, int], value: int) -> None:
+        self.data[coords[0]][coords[1]] = value
 
-    def findCage(self, row_i: int, col_i: int)  -> Cage:
+    def findCage(self, coords: Tuple[int, int])  -> Cage:
         for cage in self.cages:
-            if (row_i, col_i) in cage.squares:
+            if coords in cage.squares:
                 return cage
 
-    def isValid(self, row_i: int, col_i: int, value: int) -> bool:
+    def isValid(self, coords: Tuple[int, int], value: int) -> bool:
+        row_i, col_i = coords
         if row_i < 0 or col_i <0 or row_i >= self.size or col_i >= self.size:
             return False
 
@@ -29,14 +30,14 @@ class Board:
             if self.data[row_i2][col_i] == value:
                 return False
 
-        cage = self.findCage(row_i, col_i)
-        temp = self.getValue(row_i, col_i)
+        cage = self.findCage(coords)
+        temp = self.getValue(coords)
         ret = True
-        self.setValue(row_i, col_i, value)
-        if not cage.isValid(self.data, (row_i, col_i)):
+        self.setValue(coords, value)
+        if not cage.isValid(self.data):
             ret = False
 
-        self.setValue(row_i, col_i, temp)
+        self.setValue(coords, temp)
 
         return ret
 
@@ -79,7 +80,7 @@ class Board:
                 print(self.data[i][j], end=" ")
             print()
 
-    def displayCages(self):
+    def displayCages(self) -> None:
         for cage in self.cages:
             cage.display()
 

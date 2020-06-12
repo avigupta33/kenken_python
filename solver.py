@@ -9,7 +9,7 @@ class Solver:
     def getFirstBlank(board: Board) -> Tuple[int, int]:
         for i in range(board.size):
             for j in range(board.size):
-                if board.getValue(i,j) == 0:
+                if board.getValue((i,j)) == 0:
                     return i, j
 
     def solve(self, board: Board) -> bool:
@@ -19,8 +19,8 @@ class Solver:
         if board.verify():
             return True
         for num in range(1, board.size + 1):
-            if board.isValid(unassigned[0], unassigned[1], num):
-                board.setValue(unassigned[0], unassigned[1], num)
+            if board.isValid(unassigned, num):
+                board.setValue(unassigned, num)
                 if self.solve(board):
                     return True
-                board.setValue(unassigned[0], unassigned[1], 0)
+                board.setValue(unassigned, 0)
