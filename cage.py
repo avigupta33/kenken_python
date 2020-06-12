@@ -66,6 +66,8 @@ class Cage:
             if len(self.squares) != 2:
                 return False
             else:
+                if self.getValue(data, self.squares[0]) == 0 or self.getValue(data, self.squares[1]) == 0:
+                    return 0
                 q = max(self.getValue(data, self.squares[0]) / self.getValue(data, self.squares[1]),
                         self.getValue(data, self.squares[1]) / self.getValue(data, self.squares[0]))
                 # print("Quot.: ", q)
