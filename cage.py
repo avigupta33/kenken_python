@@ -12,30 +12,30 @@ class Cage:
 
     def isFull(self, data: List[List[int]]) -> bool:
         for square in self.squares:
-            if data[square[0]][square[1]] == 0:
+            if self.getValue(data, square) == 0:
                 return False
 
         return True
 
     def isValid(self, data, coords):
         if self.isFull(data):
-            print("this case reached")
+            # print("this case reached")
             return self.verify(data)
         if self.operator == '*':
             if self.goal % self.getValue(data, coords) != 0:
-                print("failing here")
+                # print("failing here")
                 return False
 
             if self.product(data) > self.goal:
-                print("failing here2")
+                # print("failing here2")
                 return False
 
         if self.operator == '+':
             if self.sum(data) > self.goal:
-                print("failing here3")
+                # print("failing here3")
                 return False
 
-        print(f"cage with op {self.operator} ret True at coords {coords}")
+        # print(f"cage with op {self.operator} ret True at coords {coords}")
         return True
 
     def verify(self, data) -> bool:

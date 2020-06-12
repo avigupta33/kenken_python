@@ -11,6 +11,7 @@ class Board:
         return self.data[row_i][col_i]
 
     def setValue(self, row_i: int, col_i: int, value: int) -> None:
+        # print(f"SetValue {row_i, col_i} to {value}")
         self.data[row_i][col_i] = value
 
     def findCage(self, row_i: int, col_i: int)  -> Cage:
@@ -21,31 +22,32 @@ class Board:
     def isValid(self, row_i: int, col_i: int, value: int) -> bool:
         if row_i < 0 or col_i <0 or row_i >= self.size or col_i >= self.size:
             # print(f"isValid for {value} @ ({row_i}, {col_i}) failed boundary")
-            print("e 1")
+            # print("e 1")
             return False
 
         if value in self.data[row_i]:
             # print(f"isValid for {value} @ ({row_i}, {col_i}) failed row")
-            print("e 2")
+            # print("e 2")
             return False
 
-        for i in range(0, self.size):
-            if self.data[i][col_i] == value:
+        for row_i2 in range(0, self.size):
+            if self.data[row_i2][col_i] == value:
                 # print(f"isValid for {value} @ ({row_i}, {col_i}) failed col")
-                print("e 3")
+                # print("e 3")
                 return False
 
         cage = self.findCage(row_i, col_i)
-        temp = self.data[row_i][col_i]
+        temp = self.getValue(row_i, col_i)
+        ret = True
+        # print(f"isValid setting {row_i, col_i} to {value}")
         self.setValue(row_i, col_i, value)
         if not cage.isValid(self.data, (row_i, col_i)):
-            print("e 4")
-            return False
-
-
+            ret = False
 
         self.setValue(row_i, col_i, temp)
-        return True
+        # print(f"isValid2 setting {row_i, col_i} to {temp}")
+
+        return ret
 
 
     def verify(self) -> bool:
