@@ -17,25 +17,9 @@ class Cage:
 
         return True
 
-    def isValid(self, data, coords):
+    def isValid(self, data):
         if self.isFull(data):
-            # print("this case reached")
             return self.verify(data)
-        if self.operator == '*':
-            if self.goal % self.getValue(data, coords) != 0:
-                # print("failing here")
-                return False
-
-            if self.product(data) > self.goal:
-                # print("failing here2")
-                return False
-
-        if self.operator == '+':
-            if self.sum(data) > self.goal:
-                # print("failing here3")
-                return False
-
-        # print(f"cage with op {self.operator} ret True at coords {coords}")
         return True
 
     def verify(self, data) -> bool:
@@ -53,26 +37,20 @@ class Cage:
 
         if self.operator == "-":
             if len(self.squares) !=  2:
-                # print("exit 9")
                 return False
             else:
                 diff = abs(self.getValue(data, self.squares[0]) - self.getValue(data, self.squares[1]))
-                # print("Diff: ", diff)
-                # print("Goal: ", self.goal)
-                # print("Returning", diff == self.goal)
                 return diff == self.goal
 
         if self.operator == "/":
             if len(self.squares) != 2:
                 return False
             else:
-                if self.getValue(data, self.squares[0]) == 0 or self.getValue(data, self.squares[1]) == 0:
+                v0  = self.getValue(data, self.squares[0])
+                v1 = self.getValue(data, self.squares[1])
+                if v0 == 0 or v1 == 0:
                     return 0
-                q = max(self.getValue(data, self.squares[0]) / self.getValue(data, self.squares[1]),
-                        self.getValue(data, self.squares[1]) / self.getValue(data, self.squares[0]))
-                # print("Quot.: ", q)
-                # print("Goal: ", self.goal)
-                # print("Returning", q == self.goal)
+                q = max(v0 / v1, v1/v0)
                 return q == self.goal
 
 
