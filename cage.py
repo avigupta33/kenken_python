@@ -10,7 +10,17 @@ class Cage:
     def getValue(self, data: List[List[int]], coords: Tuple[int, int]) -> int: #coords is row_i, col_i
         return data[coords[0]][coords[1]]
 
+    def isFull(self, data: List[List[int]]) -> bool:
+        for square in self.squares:
+            if data[square[0]][square[1]] == 0:
+                return False
+
+        return True
+
     def isValid(self, data, coords):
+        if self.isFull(data):
+            print("this case reached")
+            return self.verify(data)
         if self.operator == '*':
             if self.goal % self.getValue(data, coords) != 0:
                 print("failing here")
@@ -24,6 +34,8 @@ class Cage:
             if self.sum(data) > self.goal:
                 print("failing here3")
                 return False
+
+        print(f"cage with op {self.operator} ret True at coords {coords}")
         return True
 
     def verify(self, data) -> bool:
@@ -41,9 +53,13 @@ class Cage:
 
         if self.operator == "-":
             if len(self.squares) !=  2:
+                print("exit 9")
                 return False
             else:
-                diff = reduce((lambda x, y: abs(x-y)), [self.getValue(data, s) for s in self.squares ])
+                diff = abs(self.getValue(data, self.squares[0]) - self.getValue(data, self.squares[1]))
+                print("Diff: ", diff)
+                print("Goal: ", self.goal)
+                print("Returning", diff == self.goal)
                 return diff == self.goal
 
         if self.operator == "/":

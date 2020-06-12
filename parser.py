@@ -14,7 +14,7 @@ class Parser:
             line = fil.readline()
             while line:
                 row = line.split()
-                goal = row[0]
+                goal = int(row[0])
                 op = row[1]
                 squares = []
                 for i in range(2, len(row), 2):
