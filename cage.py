@@ -17,7 +17,7 @@ class Cage:
 
         return True
 
-    def isValid(self, data):
+    def isValid(self, data) -> bool:
         if self.isFull(data):
             return self.verify(data)
         return True
@@ -54,11 +54,11 @@ class Cage:
                 return q == self.goal
 
 
-    def sum(self, data):
+    def sum(self, data) -> int:
         return reduce((lambda x, y: x + y),
                       [self.getValue(data, s) for s in self.squares])
 
-    def product(self, data):
+    def product(self, data) -> int:
         return reduce((lambda x, y: x * y),
                       [self.getValue(data, s) for s in self.squares])
 

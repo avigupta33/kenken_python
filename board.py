@@ -13,7 +13,7 @@ class Board:
     def setValue(self, coords: Tuple[int, int], value: int) -> None:
         self.data[coords[0]][coords[1]] = value
 
-    def findCage(self, coords: Tuple[int, int])  -> Cage:
+    def findCage(self, coords: Tuple[int, int]) -> Cage:
         for cage in self.cages:
             if coords in cage.squares:
                 return cage
@@ -41,7 +41,6 @@ class Board:
 
         return ret
 
-
     def verify(self) -> bool:
         if not self.verifyRows():
             return False
@@ -51,7 +50,7 @@ class Board:
             return False
         return True
 
-    def verifyRows(self):
+    def verifyRows(self) -> bool:
         for row in self.data:
             if len(set(row)) != len(row):
                 return False
