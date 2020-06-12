@@ -5,13 +5,6 @@ class Solver:
     def __init__(self):
         pass
 
-    def solve(self, board: Board) -> bool:
-        pass
-
-class SudokuSolver(Solver):
-    def __init__(self):
-        pass
-
     @staticmethod
     def getFirstBlank(board: Board) -> Tuple[int, int]:
         for i in range(board.size):

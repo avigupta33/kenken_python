@@ -1,11 +1,11 @@
 from cage import Cage
 from board import Board
-from solver import SudokuSolver
+from solver import Solver
 from parser import Parser
 
 if __name__ == "__main__":
     parser = Parser()
-    solver = SudokuSolver()
+    solver = Solver()
     board = parser.parse("puzzles/kenken_test2.txt")
     solver.solve(board)
     board.display()
