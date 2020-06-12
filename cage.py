@@ -53,23 +53,26 @@ class Cage:
 
         if self.operator == "-":
             if len(self.squares) !=  2:
-                print("exit 9")
+                # print("exit 9")
                 return False
             else:
                 diff = abs(self.getValue(data, self.squares[0]) - self.getValue(data, self.squares[1]))
-                print("Diff: ", diff)
-                print("Goal: ", self.goal)
-                print("Returning", diff == self.goal)
+                # print("Diff: ", diff)
+                # print("Goal: ", self.goal)
+                # print("Returning", diff == self.goal)
                 return diff == self.goal
 
         if self.operator == "/":
             if len(self.squares) != 2:
                 return False
             else:
-                q1 = reduce((lambda x, y: x/y), [self.getValue(data, s) for s in self.squares ])
-                q2 = reduce((lambda x, y: y/x), [self.getValue(data, s) for s in self.squares ])
+                q = max(self.getValue(data, self.squares[0]) / self.getValue(data, self.squares[1]),
+                        self.getValue(data, self.squares[1]) / self.getValue(data, self.squares[0]))
+                # print("Quot.: ", q)
+                # print("Goal: ", self.goal)
+                # print("Returning", q == self.goal)
+                return q == self.goal
 
-                return max(q1, q2) == self.goal
 
     def sum(self, data):
         return reduce((lambda x, y: x + y),
