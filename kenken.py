@@ -1,5 +1,3 @@
-from cage import Cage
-from board import Board
 from solver import Solver
 from parser import Parser
 
